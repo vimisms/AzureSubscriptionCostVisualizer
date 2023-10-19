@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+        <link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
+        <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <title>
+            Subscription Cost Visualizer
+            </title>
+
+    </head>
+    <body>
+        <div class="bodyheader"> Subscription Cost Visualizer
+        </div>
+
+<!--        <div class="flex-container">-->
+
+<!--        <div class="flex-child1"> <canvas id="myChart"></canvas></div>-->
+<!--&lt;!&ndash;            <div style="height: 50vh; width: 50%;">&ndash;&gt;-->
+        <div class="graphcontent">
+            <div class="maingraph">
+                <div style="background-color: #e6fff2"> <canvas id="myChart"></canvas>
+                    </div>
+            </div>
+
+
+            <div class="flex-container">
+    <!--        <div style="height: 50vh; width: 50%;">-->
+
+                    <div data-role="tile" data-size="large" style="background-color: #e6f2ff"> <canvas id="myChartNew"></canvas>
+                        <span class="badge-bottom">Cost by Resource Type</span>
+                    </div>
+                    <div data-role="tile" data-size="large" style="background-color: #fff0e6"> <canvas id="locationchart"></canvas>
+                        <span class="badge-bottom">Cost by Location</span>
+                    </div>
+                    <div data-role="tile" data-size="large" style="background-color: #f2e6ff"> <canvas id="rgchart"></canvas>
+                        <span class="badge-bottom">Cost by Resource Groups</span>
+                    </div>
+            </div>
+        </div>
+            <script>
+        const labels = {{ labels | tojson}};
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ data | tojson}},
+                hoverOffset: 4
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              },
+
+        };
+
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
+    </script>
+        <script>
+        const rglabels = {{ rglabels | tojson}};
+
+        const rgdata = {
+            labels: rglabels,
+            datasets: [{
+                label: 'Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ rgdata | tojson}},
+                hoverOffset: 4
+            }]
+        };
+
+        const rgconfig = {
+            type: 'pie',
+            data: rgdata,
+
+        };
+
+        const rgmyChart = new Chart(
+            document.getElementById('rgchart'),
+            rgconfig
+        );
+
+    </script>
+    <script>
+        const llabels = {{ llabels | tojson}};
+
+        const ldata = {
+            labels: llabels,
+            datasets: [{
+                label: 'Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ ldata | tojson}},
+                hoverOffset: 4
+            }]
+        };
+
+        const lconfig = {
+            type: 'pie',
+            data: ldata,
+        };
+
+        const lmyChart = new Chart(
+            document.getElementById('locationchart'),
+            lconfig
+        );
+
+    </script>
+        <script>
+        const glabels = {{ glabels | tojson}};
+
+        const gdata = {
+            labels: glabels,
+            datasets: [{
+                label: 'Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ gdata | tojson}},
+                borderWidth: 1
+            }]
+        };
+
+        const gconfig = {
+            type: 'pie',
+            data: gdata,
+
+        };
+
+        const myChartnew = new Chart(
+            document.getElementById('myChartNew'),
+            gconfig
+        );
+
+    </script>
+
+    <p></p>
+    <p></p>
+        <div class="divheader"> Top 100 Costly Resources
+        </div>
+        <p></p>
+    <p></p>
+    <div class="table">
+		<div class="table-header">
+
+			<div class="header__item"><a id="name" class="filter__link" href="#">Cost</a></div>
+			<div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Resource</a></div>
+			<div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Type</a></div>
+			<div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Location</a></div>
+            <div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">ResourceGroup</a></div>
+            <div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">ServiceName</a></div>
+            <div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">ServiceTier</a></div>
+            <div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">Meter</a></div>
+            <div class="header__item"><a id="total" class="filter__link filter__link--number" href="#">Currency</a></div>
+		</div>
+		<div class="table-content">
+            {% for items in costdata %}
+			<div class="table-row">
+				<div class="table-data">{{ items['cost'] }}</div>
+				<div class="table-data">{{ items['resource'] }}</div>
+				<div class="table-data">{{ items['type'] }}</div>
+				<div class="table-data">{{ items['location'] }}</div>
+                <div class="table-data">{{ items['rgname'] }}</div>
+				<div class="table-data">{{ items['servicename'] }}</div>
+				<div class="table-data">{{ items['tier'] }}</div>
+				<div class="table-data">{{ items['meter'] }}</div>
+                <div class="table-data">{{ items['currency'] }}</div>
+			</div>
+            {% endfor %}
+		</div>
+	</div>
+        
+    </body>
+</html>

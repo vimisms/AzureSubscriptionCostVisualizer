@@ -4,10 +4,10 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-client_id = ''
-client_secret = ''
-tenant_id = ''
-subscription_id = ''
+client_id = '4114dac8-0195-475e-9b60-da65231a2ea8'
+client_secret = 'E1N8Q~qkrgkAtK0mlNNHHNfQoDg7nDQeSWlOqaPJ'
+tenant_id = 'e18a0c35-c3ed-46f4-8e69-018ca67f8288'
+subscription_id = '6e268af1-b2a7-44a7-9a1a-9025889dbe5d'
 
 token_uri = "https://login.microsoftonline.com/" + str(tenant_id) + "/oauth2/token"
 

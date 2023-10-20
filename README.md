@@ -21,6 +21,7 @@ In order to successfully run this solution , below prerequisites need to be avai
 - An Azure subscription
 - An application registered in Azure active directory (we would need client ID and client secret while running)
 - Python and flask installed in local system or environment where solution is running
+- Make sure application has atleast 'Reader' permissions on subscription to read the cost data
 
 ## Getting Started - Running the application locally
 

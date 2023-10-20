@@ -8,7 +8,7 @@ RUN apt-get install -y python3-pip
 
 COPY . .
 
-EXPOSE 5400
+EXPOSE 5000
 
 RUN pip install -r requirements.txt
 

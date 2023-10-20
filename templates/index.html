@@ -14,39 +14,45 @@
     <body>
         <div class="bodyheader"> Subscription Cost Visualizer
         </div>
-
-<!--        <div class="flex-container">-->
-
-<!--        <div class="flex-child1"> <canvas id="myChart"></canvas></div>-->
-<!--&lt;!&ndash;            <div style="height: 50vh; width: 50%;">&ndash;&gt;-->
         <div class="graphcontent">
-            <div class="maingraph">
+            <div class="maingraph1">
                 <div style="background-color: #e6fff2"> <canvas id="myChart"></canvas>
                     </div>
             </div>
-
-
+            <div class="maingraph2">
+                <div style="background-color: #ffccff"> <canvas id="lmChart"></canvas>
+                </div>
+            </div>
+                </div>
+        </div>
+        <p></p>
+        <p></p>
             <div class="flex-container">
-    <!--        <div style="height: 50vh; width: 50%;">-->
 
                     <div data-role="tile" data-size="large" style="background-color: #e6f2ff"> <canvas id="myChartNew"></canvas>
-                        <span class="badge-bottom">Cost by Resource Type</span>
+                        <span class="badge-bottom">Cost by Resource Type - Month to date</span>
                     </div>
                     <div data-role="tile" data-size="large" style="background-color: #fff0e6"> <canvas id="locationchart"></canvas>
-                        <span class="badge-bottom">Cost by Location</span>
+                        <span class="badge-bottom">Cost by LocationType - Month to date</span>
                     </div>
                     <div data-role="tile" data-size="large" style="background-color: #f2e6ff"> <canvas id="rgchart"></canvas>
-                        <span class="badge-bottom">Cost by Resource Groups</span>
+                        <span class="badge-bottom">Cost by Resource Groups - Month to date</span>
+                    </div>
+                    <div data-role="tile" data-size="large" style="background-color: #ccddff"> <canvas id="servicechart"></canvas>
+                        <span class="badge-bottom">Cost by ServiceType - Month to date</span>
+                    </div>
+                    <div data-role="tile" data-size="large" style="background-color: #ccffff"> <canvas id="meterchart"></canvas>
+                        <span class="badge-bottom">Cost by MeterType - Month to date</span>
                     </div>
             </div>
-        </div>
+
             <script>
         const labels = {{ labels | tojson}};
 
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Cost',
+                label: 'Cost - Month to date',
                 backgroundColor: [
                       'rgb(255, 99, 132)',
                       'rgb(54, 162, 235)',
@@ -84,6 +90,49 @@
 
     </script>
         <script>
+        const lmlabels = {{ lmlabels | tojson}};
+
+        const lmdata = {
+            labels: lmlabels,
+            datasets: [{
+                label: 'Last Month Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ lmdata | tojson}},
+                hoverOffset: 4
+            }]
+        };
+
+        const lmconfig = {
+            type: 'bar',
+            data: lmdata,
+            options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              },
+
+        };
+
+        const lmChart = new Chart(
+            document.getElementById('lmChart'),
+            lmconfig
+        );
+
+    </script>
+        <script>
         const rglabels = {{ rglabels | tojson}};
 
         const rgdata = {
@@ -116,6 +165,43 @@
         const rgmyChart = new Chart(
             document.getElementById('rgchart'),
             rgconfig
+        );
+
+    </script>
+
+        <script>
+        const servicelabels = {{ servicelabels | tojson}};
+
+        const servicedata = {
+            labels: servicelabels,
+            datasets: [{
+                label: 'Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ servicedata | tojson}},
+                hoverOffset: 4
+            }]
+        };
+
+        const serviceconfig = {
+            type: 'pie',
+            data: servicedata,
+
+        };
+
+        const serviceChart = new Chart(
+            document.getElementById('servicechart'),
+            serviceconfig
         );
 
     </script>
@@ -187,6 +273,43 @@
         const myChartnew = new Chart(
             document.getElementById('myChartNew'),
             gconfig
+        );
+
+    </script>
+
+        <script>
+        const meterlabels = {{ meterlabels | tojson}};
+
+        const meterdata = {
+            labels: meterlabels,
+            datasets: [{
+                label: 'Cost',
+                backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      'rgb(153, 51, 255)',
+                      'rgb(255, 0, 255)',
+                      'rgb(0, 0, 255)',
+                      'rgb(0, 153, 51)',
+                      'rgb(0, 102, 153)',
+                      'rgb(153, 0, 0)',
+                      'rgb(102, 102, 51)'
+                    ],
+                data: {{ meterdata | tojson}},
+                borderWidth: 1
+            }]
+        };
+
+        const meterconfig = {
+            type: 'pie',
+            data: meterdata,
+
+        };
+
+        const meterChart = new Chart(
+            document.getElementById('meterchart'),
+            meterconfig
         );
 
     </script>

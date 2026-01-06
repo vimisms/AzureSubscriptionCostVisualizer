@@ -14,6 +14,8 @@ This provides cost details as per below:
 - Cost by Service
 - Cost by Meter
 
+Adding this line for Git Demo
+
 ## Prerequisites
 
 In order to successfully run this solution , below prerequisites need to be available:
